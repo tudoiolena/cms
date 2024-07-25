@@ -1,13 +1,13 @@
-name: "dremix2"
+name: "ecom-cms-test"
 
 services:
   remix:
     build:
       context: ./docker/node
       args:
-        - UID=1000
-        - GID=1000
-        - USER_NAME=dev
+        - UID=${UID}
+        - GID=${GID}
+        - USER_NAME=${USER_NAME}
     user: 1000:1000
     volumes:
       - ./source:/app

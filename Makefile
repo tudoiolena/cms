@@ -1,12 +1,18 @@
+include .env
+
+docker_bin := $(shell command -v docker 2> /dev/null)
+docker_compose_bin := $(docker_bin) compose
+compose_config := --env-file=./.env
+
 check: 
-	docker compose config
+	$(docker_compose_bin) $(compose_config) config
 up: check
-	docker compose up -d
+	$(docker_compose_bin) $(compose_config) up -d
 down:
-	docker compose down
+	$(docker_compose_bin) $(compose_config) down
 ps:
-	docker compose ps -a
+	$(docker_compose_bin) $(compose_config) ps -a
 run:
-	docker compose stop remix
-	docker compose run --rm -v ./source:/app -p 3000:3000 remix bash
-	docker compose start remix
+	$(docker_compose_bin) $(compose_config) stop remix
+	$(docker_compose_bin) $(compose_config) run --rm -v ./source:/app -p 3000:3000 remix bash
+	$(docker_compose_bin) $(compose_config) start remix
