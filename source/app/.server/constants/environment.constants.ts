@@ -13,7 +13,7 @@ export const environment = {
   users: {
     admin: {
       email: env.DEFAULT_ADMIN_EMAIL,
-      password: env.DEFAULT_ADMIN_PASSWORD,
+      password: env.DEFAULT_ADMIN_PASSWORD!,
     },
   },
 };
