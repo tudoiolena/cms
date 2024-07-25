@@ -1,5 +1,8 @@
 name: "ecom-cms-test"
 
+volumes:
+  db-data:
+
 services:
   remix:
     build:
@@ -8,7 +11,7 @@ services:
         - UID=${UID}
         - GID=${GID}
         - USER_NAME=${USER_NAME}
-    user: 1000:1000
+    user: ${UID}:${GID}
     volumes:
       - ./source:/app
     ports:
@@ -17,22 +20,25 @@ services:
       - npm
       - run
       - dev
+
   db:
     container_name: postgres_container
     image: postgres
     restart: always
+    shm_size: 1024mb
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: test_db
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
   pgadmin:
     container_name: pgadmin4_container
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
-      - "5050:80"
+      - "3080:80"
