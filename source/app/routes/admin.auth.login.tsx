@@ -3,8 +3,8 @@ import { Form, json, useLoaderData } from "@remix-run/react";
 import {
   ADMIN_AUTH_STRATEGY,
   authenticator,
-} from "../.server/services/auth.service";
-import { commitSession, getSession } from "../.server/utils/session.util";
+} from "../.server/admin/services/auth.service";
+import { commitSession, getSession } from "../.server/admin/utils/session.util";
 
 export async function action({ request }: ActionFunctionArgs) {
   return await authenticator.authenticate(ADMIN_AUTH_STRATEGY, request, {
