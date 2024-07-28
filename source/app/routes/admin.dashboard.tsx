@@ -1,3 +1,4 @@
+import React from "react";
 import { useLoaderData } from "@remix-run/react";
 import { adminDashboardLoader } from "~/.server/admin/loaders/dashboard.loader";
 
